@@ -3,6 +3,7 @@ CC      = $(CROSS)gcc
 OBJCOPY = $(CROSS)objcopy
 ARCH    = $(CROSS)ar
 
+IMAGE_NAME     ?= RTOSDemo.axf
 BUILD_DIR       = build
 RTOS_SOURCE_DIR = $(abspath ../../Source)
 DEMO_SOURCE_DIR = $(abspath ../Common/Minimal)
@@ -53,7 +54,7 @@ ASMS = start.S \
 OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o) $(ASMS:%.S=$(BUILD_DIR)/%.o)
 DEPS = $(SRCS:%.c=$(BUILD_DIR)/%.d) $(ASMS:%.S=$(BUILD_DIR)/%.d)
 
-$(BUILD_DIR)/RTOSDemo.axf: $(OBJS) fake_rom.lds Makefile
+$(BUILD_DIR)/$(IMAGE_NAME): $(OBJS) fake_rom.lds Makefile
 	$(CC) $(LDFLAGS) $(OBJS) -o $@
 
 $(BUILD_DIR)/%.o: %.c Makefile
